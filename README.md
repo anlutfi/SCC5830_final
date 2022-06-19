@@ -20,22 +20,25 @@ The main processing tasks involved will be image segmentation, to divide the ima
 
 
 ## Initial Experiments and Results
+As of now, two experiments were conducted. In the first, segmentation is being tried via haralick descriptors of different tree textures. In the second, a mean shift approach is tried to segment individual trees before texture identification.
 
-### Overview
+### First Experiment
 
-As of now, different textures were extracted from a test image(shown a little further). Their haralick descriptors were computed in similar fashion from the fifith course assignment. Then, the input image was divided into 120x120 chunks, and each was assigned to its closest texture according to euclidean distance between descriptors.
+#### Overview
+
+Different textures were extracted from a test image(shown a little further). Their haralick descriptors were computed in similar fashion from the fifith course assignment. Then, the input image was divided into 120x120 chunks, and each was assigned to its closest texture according to euclidean distance between descriptors.
 
 The results are far from complete, but even in this crude initial approach, there is some consistency within them.
 
-### Next Steps
+#### Next Steps
 
 There are varying shades of green within the same species. So, if a classifier is sensible to the hue, it could make mistakes, as it is observed. The next thing to solve is make the descriptors invariant to small changes in green. The first approach to that, of course, is getting a larger dataset for each texture. Experiments with different color spaces also can help.
 
 Other methods of segmentation shall also be tried. As there is no clear background beyond the gaps between trees, common algorithms such as watershed don't seem applicable so far, at least to my knowledge of it. Fractal Dimension(FD) segmentation is also a possible candidate, but there is a chance that the variation within the FD of trees could be to small to be reliable.
 
-### Code
+#### Code
 
-#### Imports
+##### Imports
 
 
 ```python
@@ -50,7 +53,12 @@ import imageio
 from morph_texture import euclidean_distance, get_haralick, get_masks, normalize
 ```
 
-#### Displaying Tools
+
+```python
+R, G, B = 0, 1, 2
+```
+
+##### Displaying Tools
 
 
 ```python
@@ -59,7 +67,7 @@ def show(img, plt_size=(16, 10), cmap=None):
     plt.imshow(img, cmap=cmap if cmap is not None else (None if len(img.shape) == 3 else 'gray'))
 ```
 
-#### Loading Test Image and Textures
+##### Loading Test Image and Textures
 
 
 ```python
@@ -76,7 +84,7 @@ for i in range(len(textures)):
 
 
     
-![png](test_files/test_14_0.png)
+![png](test_files/test_16_0.png)
     
 
 
@@ -87,11 +95,11 @@ show(img)
 
 
     
-![png](test_files/test_15_0.png)
+![png](test_files/test_17_0.png)
     
 
 
-#### Get Haralick Descriptors for Textures to use as Clusters' Centroids
+##### Get Haralick Descriptors for Textures to use as Clusters' Centroids
 
 
 ```python
@@ -121,7 +129,7 @@ descriptors[0]
 
 
 
-#### Segment Image
+##### Segment Image
 Run a moving window and classify it accosrding to its closest centroid (texture)
 
 
@@ -155,11 +163,11 @@ show(segmented)
 
 
     
-![png](test_files/test_23_0.png)
+![png](test_files/test_25_0.png)
     
 
 
-#### Show Each Segment Separately
+##### Show Each Segment Separately
 It's far from impressive, but there is some consistency. By sampling more of the textures and getting a more general representation, results could improve. Other segmentation algorithms will be tried as well.
 
 
@@ -183,45 +191,7 @@ plt.imshow(masked[0])
 
 
 
-    <matplotlib.image.AxesImage at 0x7fdc53eed730>
-
-
-
-
-    
-![png](test_files/test_26_1.png)
-    
-
-
-
-```python
-fig = plt.figure(figsize=(32, 20))
-plt.imshow(masked[1])
-```
-
-
-
-
-    <matplotlib.image.AxesImage at 0x7fdc53691d00>
-
-
-
-
-    
-![png](test_files/test_27_1.png)
-    
-
-
-
-```python
-fig = plt.figure(figsize=(32, 20))
-plt.imshow(masked[2])
-```
-
-
-
-
-    <matplotlib.image.AxesImage at 0x7fdc53f38400>
+    <matplotlib.image.AxesImage at 0x7f2a28db77c0>
 
 
 
@@ -234,13 +204,13 @@ plt.imshow(masked[2])
 
 ```python
 fig = plt.figure(figsize=(32, 20))
-plt.imshow(masked[3])
+plt.imshow(masked[1])
 ```
 
 
 
 
-    <matplotlib.image.AxesImage at 0x7fdc53642ac0>
+    <matplotlib.image.AxesImage at 0x7f2a295efd30>
 
 
 
@@ -253,13 +223,13 @@ plt.imshow(masked[3])
 
 ```python
 fig = plt.figure(figsize=(32, 20))
-plt.imshow(masked[4])
+plt.imshow(masked[2])
 ```
 
 
 
 
-    <matplotlib.image.AxesImage at 0x7fdc535d4160>
+    <matplotlib.image.AxesImage at 0x7f2a29627400>
 
 
 
@@ -272,13 +242,13 @@ plt.imshow(masked[4])
 
 ```python
 fig = plt.figure(figsize=(32, 20))
-plt.imshow(masked[5])
+plt.imshow(masked[3])
 ```
 
 
 
 
-    <matplotlib.image.AxesImage at 0x7fdc53f9f730>
+    <matplotlib.image.AxesImage at 0x7f2a28d72b80>
 
 
 
@@ -291,13 +261,13 @@ plt.imshow(masked[5])
 
 ```python
 fig = plt.figure(figsize=(32, 20))
-plt.imshow(masked[6])
+plt.imshow(masked[4])
 ```
 
 
 
 
-    <matplotlib.image.AxesImage at 0x7fdc55890f70>
+    <matplotlib.image.AxesImage at 0x7f2a28cf5f10>
 
 
 
@@ -310,18 +280,268 @@ plt.imshow(masked[6])
 
 ```python
 fig = plt.figure(figsize=(32, 20))
-plt.imshow(masked[7])
+plt.imshow(masked[5])
 ```
 
 
 
 
-    <matplotlib.image.AxesImage at 0x7fdc55a5baf0>
+    <matplotlib.image.AxesImage at 0x7f2a29689df0>
 
 
 
 
     
 ![png](test_files/test_33_1.png)
+    
+
+
+
+```python
+fig = plt.figure(figsize=(32, 20))
+plt.imshow(masked[6])
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f2a2afbf220>
+
+
+
+
+    
+![png](test_files/test_34_1.png)
+    
+
+
+
+```python
+fig = plt.figure(figsize=(32, 20))
+plt.imshow(masked[7])
+```
+
+
+
+
+    <matplotlib.image.AxesImage at 0x7f2a2b0929d0>
+
+
+
+
+    
+![png](test_files/test_35_1.png)
+    
+
+
+### Second experiment
+
+#### Overview
+
+Edge detection in this domain is very hard, so a more convoluted method was devised and tried. Firstly, we binarize the image using Otsu thresholding. Then we erode the binary image to exaggerate the gaps between trees. We then use this eroded binary as a mask over the grayscale version of the original image.
+
+The idea is to use this masked image to perform mean shift segmentation. Since the top of the trees are more illuminated than the rest, we can use the pixel values as probabilities for the mean shift. The results were surprisingly good for a first approach.
+
+#### Next Steps
+
+Since I am not familiar with mean shift, there are some theoretical studies that could benefit the experiment. Performance is also a concern.
+
+#### Code
+
+##### Imports
+
+
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+import imageio
+```
+
+
+```python
+H, W, CH = 0, 1, 2
+```
+
+
+```python
+from morph_texture import normalize
+```
+
+##### Image Loading
+
+
+```python
+img = imageio.imread('./test_img.png')
+show(img)
+```
+
+
+    
+![png](test_files/test_45_0.png)
+    
+
+
+##### Get grayscale and binarize
+
+
+```python
+gray_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+_, bin_img = cv2.threshold(gray_img, 0, 1, cv2.THRESH_OTSU)
+show(bin_img)
+```
+
+
+    
+![png](test_files/test_47_0.png)
+    
+
+
+##### Erode binary image and use as mask over grayscale original
+
+
+```python
+tst = bin_img
+for i in range(2):
+    tst = cv2.morphologyEx(tst, cv2.MORPH_ERODE, np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]))
+    #tst = cv2.morphologyEx(tst, cv2.MORPH_CLOSE, np.array([[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]]))
+
+probs = np.zeros_like(gray_img)
+idxs = np.where(tst == 1)
+probs[idxs] = gray_img[idxs]
+
+show(probs)
+
+
+```
+
+
+    
+![png](test_files/test_49_0.png)
+    
+
+
+##### Segmentation function
+
+Since it's impossible to run it for every pixel, the function uses a sample rate, and assigns surrounding pixels to the same cluster.
+I am also ignoring borders for now.
+
+
+```python
+def segment_by_meanshft(img, smpl_rate, window_sz, criterion):
+    result = np.zeros((img.shape[0], img.shape[1], 3))
+    for h in range(window_sz[H] // 2, probs.shape[H] - (window_sz[H] // 2), smpl_rate[H]):
+        for w in range(window_sz[W] // 2, probs.shape[W] - (window_sz[W] // 2), smpl_rate[W]):
+            window = (w - window_sz[W] // 2, h - window_sz[H] // 2, window_sz[W], window_sz[H])
+            _, window = cv2.meanShift(probs, window, criterion)
+            center = window[H] + window[2] // 2, window[W] + window[3] // 2
+            color = (center[W] / probs.shape[H], center[H] / probs.shape[W], 0.25)
+            result[h - smpl_rate[H] // 2: h + smpl_rate[H] // 2,
+                   w - smpl_rate[W] // 2: w + smpl_rate[W] // 2] = color
+    
+    return normalize(result, (0, 255), np.uint8)
+```
+
+##### Set parameters and run
+
+
+```python
+smpl_rate = (100, 100)
+window_sz = (400, 400)
+criterion = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 30, 1)
+```
+
+
+```python
+segmented = segment_by_meanshft(probs, smpl_rate, window_sz, criterion)
+```
+
+##### Very similar clusters need to be joined, so requantising is necessary
+
+
+```python
+def re_quantise(img, bin_mask=0b11100000):
+    return img & bin_mask
+```
+
+
+```python
+seg2 = re_quantise(segmented)
+```
+
+##### Visualization Technique 1
+
+
+```python
+edges = cv2.Canny(seg2, 0, 200)
+edges = cv2.morphologyEx(edges,
+                         cv2.MORPH_DILATE,
+                         np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]),
+                         iterations=3)
+idxs = np.where(edges == 255)
+seg2[idxs] = (255, 255, 255)
+show(seg2)
+```
+
+
+    
+![png](test_files/test_59_0.png)
+    
+
+
+
+```python
+alpha = 0.4
+show(cv2.addWeighted(seg2, alpha, img, 1 - alpha, 0))
+```
+
+
+    
+![png](test_files/test_60_0.png)
+    
+
+
+##### Visualization Technique 2
+
+
+```python
+clusters = np.unique(seg2.reshape(-1, seg2.shape[2]), axis=0)
+```
+
+
+```python
+def visualize_cluster(segmented, cluster, img):
+    idxs = np.where(np.all(segmented == cluster, axis=-1))
+    img = normalize(img)
+    result = img * 0.5
+    result[idxs] = img[idxs]
+    result = normalize(result, (0, 255), np.uint8)
+    show(result)
+```
+
+
+```python
+show_cluster = lambda i: visualize_cluster(seg2, clusters[i], img)
+```
+
+
+```python
+show_cluster(40)
+```
+
+
+    
+![png](test_files/test_65_0.png)
+    
+
+
+
+```python
+show_cluster(16)
+```
+
+
+    
+![png](test_files/test_66_0.png)
     
 
