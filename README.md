@@ -191,7 +191,7 @@ plt.imshow(masked[0])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f2a28db77c0>
+    <matplotlib.image.AxesImage at 0x7f3d0b75e7c0>
 
 
 
@@ -210,7 +210,7 @@ plt.imshow(masked[1])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f2a295efd30>
+    <matplotlib.image.AxesImage at 0x7f3d0bfccd30>
 
 
 
@@ -229,7 +229,7 @@ plt.imshow(masked[2])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f2a29627400>
+    <matplotlib.image.AxesImage at 0x7f3d0c0424c0>
 
 
 
@@ -248,7 +248,7 @@ plt.imshow(masked[3])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f2a28d72b80>
+    <matplotlib.image.AxesImage at 0x7f3d0b7b0940>
 
 
 
@@ -267,7 +267,7 @@ plt.imshow(masked[4])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f2a28cf5f10>
+    <matplotlib.image.AxesImage at 0x7f3d0b6db280>
 
 
 
@@ -286,7 +286,7 @@ plt.imshow(masked[5])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f2a29689df0>
+    <matplotlib.image.AxesImage at 0x7f3d0c0f03d0>
 
 
 
@@ -305,7 +305,7 @@ plt.imshow(masked[6])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f2a2afbf220>
+    <matplotlib.image.AxesImage at 0x7f3d0d999f10>
 
 
 
@@ -324,7 +324,7 @@ plt.imshow(masked[7])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f2a2b0929d0>
+    <matplotlib.image.AxesImage at 0x7f3d0da66a90>
 
 
 
@@ -435,7 +435,7 @@ def segment_by_meanshft(img, smpl_rate, window_sz, criterion):
             window = (w - window_sz[W] // 2, h - window_sz[H] // 2, window_sz[W], window_sz[H])
             _, window = cv2.meanShift(probs, window, criterion)
             center = window[H] + window[2] // 2, window[W] + window[3] // 2
-            color = (center[W] / probs.shape[H], center[H] / probs.shape[W], 0.25)
+            color = (center[W] / probs.shape[H], 0.25, center[H] / probs.shape[W])
             result[h - smpl_rate[H] // 2: h + smpl_rate[H] // 2,
                    w - smpl_rate[W] // 2: w + smpl_rate[W] // 2] = color
     
