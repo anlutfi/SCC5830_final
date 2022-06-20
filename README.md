@@ -11,7 +11,7 @@ Images are provided by Professor [Bruno Mendonça](https://institutos.ufrrj.br/i
 ## Metodology
 The main processing tasks involved will be image segmentation, to divide the images into individuals. Also, image description will be used to identify the segmented individuals' species. More specifically, the intended steps for the process are detailed below:
 
-1. Get a dataset with many examples of each tree species present in these woods, as each one is a texture. As of now, I did this by eye and with one example per texture. This depends on the availability of the forest engineers involved and is scheduled to happen soon.
+1. Get a dataset with many examples of each tree species present in these woods, as each one is a texture. As of now, I did this by eye and with one example per texture. This depends on the availability of the forest engineers involved and is scheduled to happen soon. There is an inventory of the tree species present in the studied forest, and manual annotation will follow this document.
 
 2. Compute the centroid of each sepecies' texture by its descriptors. As this domain does not have very strong edges or transitions, enhancements will have to be experimented with in order to differentiate the classes.
 
@@ -191,7 +191,7 @@ plt.imshow(masked[0])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f3d0b75e7c0>
+    <matplotlib.image.AxesImage at 0x7f5f97d6a820>
 
 
 
@@ -210,7 +210,7 @@ plt.imshow(masked[1])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f3d0bfccd30>
+    <matplotlib.image.AxesImage at 0x7f5f985dfca0>
 
 
 
@@ -229,7 +229,7 @@ plt.imshow(masked[2])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f3d0c0424c0>
+    <matplotlib.image.AxesImage at 0x7f5f98657250>
 
 
 
@@ -248,7 +248,7 @@ plt.imshow(masked[3])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f3d0b7b0940>
+    <matplotlib.image.AxesImage at 0x7f5f97dc4880>
 
 
 
@@ -267,7 +267,7 @@ plt.imshow(masked[4])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f3d0b6db280>
+    <matplotlib.image.AxesImage at 0x7f5f97cef1c0>
 
 
 
@@ -286,7 +286,7 @@ plt.imshow(masked[5])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f3d0c0f03d0>
+    <matplotlib.image.AxesImage at 0x7f5f986e44c0>
 
 
 
@@ -305,7 +305,7 @@ plt.imshow(masked[6])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f3d0d999f10>
+    <matplotlib.image.AxesImage at 0x7f5f98663220>
 
 
 
@@ -324,7 +324,7 @@ plt.imshow(masked[7])
 
 
 
-    <matplotlib.image.AxesImage at 0x7f3d0da66a90>
+    <matplotlib.image.AxesImage at 0x7f5f9a07a970>
 
 
 
