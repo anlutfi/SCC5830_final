@@ -3,14 +3,21 @@ import numpy as np
 from os import listdir, path
 from morph_texture import normalize
 
-def get_depth_map(point_cloud_dir,
-                  output_resolution,
-                  output_range=(0, 255),
-                  output_type=np.uint8):
+X, Y, Z, R, G, B = 0, 1, 2, 3, 4, 5
+
+def get_depth_and_rgb(point_cloud_dir,
+                      output_resolution,
+                      output_range=(0, 255),
+                      output_type=np.uint8):
     points = None
     for fname in listdir(point_cloud_dir):
         pc = laspy.read(path.sep.join([point_cloud_dir, fname]))
-        point_data = np.stack([pc.X, pc.Y, pc.Z], axis=0).transpose((1, 0))
+        point_data = np.stack([pc.X,
+                               pc.Y,
+                               pc.Z,
+                               pc.red,
+                               pc.green,
+                               pc.blue], axis=0).transpose((1, 0))
         if points is None:
             points = point_data
         else:
@@ -20,24 +27,33 @@ def get_depth_map(point_cloud_dir,
     
     H, W = output_resolution
     
-    points[:, 0] = normalize(points[:, 0], (0, W - 1), points.dtype)
-    points[:, 0] = np.floor(points[:, 0])
+    points[:, X] = normalize(points[:, X], (0, W - 1), points.dtype)
+    points[:, X] = np.floor(points[:, X])
 
-    points[:, 1] = normalize(points[:, 1], (0, H - 1), points.dtype)
-    points[:, 1] = np.floor(points[:, 1])
+    points[:, Y] = normalize(points[:, Y], (0, H - 1), points.dtype)
+    points[:, Y] = np.floor(points[:, Y])
 
-    points[:, 2] = normalize(points[:, 2], type=points.dtype)
+    points[:, Z] = normalize(points[:, Z], type=points.dtype)
 
-    result = [[[] for w in range(W)] for h in range(H)]
+    points[:, R] = normalize(points[:, R], type=points.dtype)
+    points[:, G] = normalize(points[:, G], type=points.dtype)
+    points[:, B] = normalize(points[:, B], type=points.dtype)
+
+    depth = [[[] for w in range(W)] for h in range(H)]
+    rgb = [[[] for w in range(W)] for h in range(H)]
     # TODO these fors need desperate improvement
     for point in points:
-        result[int(point[1])][int(point[0])].append(point[2])
+        depth[int(point[Y])][int(point[X])].append(point[Z])
+        rgb[int(point[Y])][int(point[X])].append((point[R], point[G], point[B]))
     for h in range(H):
         for w in range(W):
-            result[h][w] = np.mean(result[h][w]) if len(result[h][w]) > 0 else 0
+            depth[h][w] = np.mean(depth[h][w]) if len(depth[h][w]) > 0 else 0
+            rgb[h][w] = np.mean(rgb[h][w], axis=0) if len(rgb[h][w]) > 0 else (-1 , -1, -1)
     
-    result = normalize(np.array(result), output_range, output_type)
-    return np.flip(result, axis=0)
+    depth = normalize(np.array(depth), output_range, output_type)
+    rgb = normalize(np.array(rgb), output_range, np.int32)
+    
+    return np.flip(depth, axis=0), np.flip(rgb, axis=0)
     
     
     
