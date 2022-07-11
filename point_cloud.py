@@ -29,6 +29,7 @@ def get_depth_map(point_cloud_dir,
     points[:, 2] = normalize(points[:, 2], type=points.dtype)
 
     result = [[[] for w in range(W)] for h in range(H)]
+    # TODO these fors need desperate improvement
     for point in points:
         result[int(point[1])][int(point[0])].append(point[2])
     for h in range(H):
