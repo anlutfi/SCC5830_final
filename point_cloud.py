@@ -51,7 +51,11 @@ def get_depth_and_rgb(point_cloud_dir,
             rgb[h][w] = np.mean(rgb[h][w], axis=0) if len(rgb[h][w]) > 0 else (-1 , -1, -1)
     
     depth = normalize(np.array(depth), output_range, output_type)
-    rgb = normalize(np.array(rgb), output_range, np.int32)
+    rgb = np.array(rgb)
+    idxs = np.where(np.all(rgb == (-1, -1, -1), axis=-1))
+    rgb[idxs] = (0, 0, 0)
+    rgb = normalize(np.array(rgb), output_range, np.float)
+    rgb[idxs] = (-1, -1, -1)
     
     return np.flip(depth, axis=0), np.flip(rgb, axis=0)
     
