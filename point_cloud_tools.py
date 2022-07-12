@@ -77,6 +77,3 @@ def process_point_cloud(point_cloud_dir,
     
     return (np.flip(depth, axis=0),
             np.flip(rgb, axis=0) if generate_rgb else None)
-    
-    
-    
