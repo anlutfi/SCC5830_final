@@ -1,7 +1,7 @@
 import laspy
 import numpy as np
 from os import listdir, path
-from morph_texture import normalize
+from img_utils import normalize
 
 X, Y, Z, R, G, B = 0, 1, 2, 3, 4, 5
 
