@@ -21,9 +21,11 @@ def normalize(img, value_range=(0, 1), type=float, by_channel=False):
     return result.astype(type)
 
 
-def show(img, plt_size=(16, 10), cmap=None):
+def show(img, plt_size=(16, 10), cmap=None, title=None):
     """displays an image in jupyter"""
     fig = plt.figure(figsize=plt_size)
+    if title is not None:
+        plt.title(title)
     plt.imshow(img, cmap=(cmap
                           if cmap is not None
                           else (None if len(img.shape) == 3 else 'gray')))
