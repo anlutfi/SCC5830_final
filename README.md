@@ -400,15 +400,6 @@ def view_debug(layers, filtered, orig_img, sz=None):
 View process results at 4 different sizes
 
 
-```python
-watershed.keys()
-```
-
-
-
-
-    dict_keys([19, 21, 23, 25, 27, 31, 33, 35, 37, 47, 49, 51, 57, 59, 61, 73, 77, 79, 81, 83])
-
 
 
 
