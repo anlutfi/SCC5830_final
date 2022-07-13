@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-from img_utils import normalize
 from skimage.morphology import disk
 from skimage.segmentation import watershed
 
