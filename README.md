@@ -2,11 +2,11 @@
 
 This is the last report concerning the experiments performed in order to count the tree crowns present in drone-captured data of a tropical forest.
 
-In section1, there is a description of the problem and the motivation behind it.  
-In section2, the input images are described in detail.  
-In section3, the first two failed approaches are presented, making an inventory of the lessons learned.  
-Section 4 presents the third and most successful experiment in great detail and future steps. Like the previous ones, the end of this section is a summary of lessons learned.  
-Section 5 is a brief conclusion.
+In [section 1](#the-problem-at-hand), there is a description of the problem and the motivation behind it.  
+In [section 2](#input-images), the input images are described in detail.  
+In [section 3](#initial-approaches), the first two failed approaches are presented, making an inventory of the lessons learned([here](#lessons-learned) and [here](#lessons-learned-1)).  
+[Section 4](#the-final-current-approach) presents the third and most successful experiment in great detail and future steps. Like the previous ones, the end of this section is a summary of [lessons learned](#lessons-learned-2).  
+[Section 5](#conclusion) is a brief conclusion.
 
 All work was done by me, Antonio Lutfi. This markdown file is generated from the jupyter notebook final_report.ipynb. It should be downloaded in order to run the code. Necessary libraries are listed under requirements.txt.
 
