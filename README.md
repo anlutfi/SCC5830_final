@@ -408,8 +408,6 @@ view_debug(watershed, filtered, rgb, [19, 33, 51, 79])
 
 ```
 
-    /media/antonio/Ubuntail/Dropbox/education/phd/courses/processamento_imagens/assignments/final/SCC5830_final/img_utils.py:26: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-      fig = plt.figure(figsize=plt_size)
 
 
 
